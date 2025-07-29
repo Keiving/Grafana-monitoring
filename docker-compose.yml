@@ -114,8 +114,10 @@ services:
     restart: always
     volumes:
       - ./snmp/:/etc/snmp_exporter/
-    ports:
-      - "9116:9116"
+    networks:
+      - internal
+    expose:
+      - 9116
     depends_on:
       - prometheus
 
