@@ -46,4 +46,4 @@ scrape_configs:
       - source_labels: [__param_target]
         target_label: instance
       - target_label: __address__
-        replacement: replace_this:9116 #Replace this with host ip
+        replacement: snmp-exporter:9116 #Replace this with host ip
