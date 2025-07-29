@@ -27,16 +27,11 @@ scrape_configs:
     static_configs:
          - targets: ['localhost:9090']
 
-  - job_name: 'cadvisor'
-    scrape_interval: 5s
-    static_configs:
-      - targets: ['cadvisor:8080']
-
   - job_name: 'node-exporter'
     scrape_interval: 5s
     static_configs:
       - targets: ['node-exporter:9100']
-      - targets: ['CHANGE THIS']
+      - targets: ['replace_this'] #Replace this with 1 more node (Optional)
 
   - job_name: 'snmp-exporter'
     static_configs:
@@ -51,4 +46,4 @@ scrape_configs:
       - source_labels: [__param_target]
         target_label: instance
       - target_label: __address__
-        replacement: CHANGE THIS:9116
+        replacement: replace_this:9116 #Replace this with host ip
