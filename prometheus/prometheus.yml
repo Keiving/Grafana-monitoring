@@ -31,12 +31,12 @@ scrape_configs:
     scrape_interval: 5s
     static_configs:
       - targets: ['node-exporter:9100']
-      - targets: ['replace_this'] #Replace this with 1 more node (Optional)
+      - targets: ['replace_this:9100'] #Replace this with 1 more node (Optional)
 
   - job_name: 'snmp-exporter'
     static_configs:
       - targets:
-        - CHANGE THIS
+        - replace_this #Replace this with Mikrotik ip address
     metrics_path: /snmp
     params:
       module: [mikrotik]
