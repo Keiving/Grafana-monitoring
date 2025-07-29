@@ -10,7 +10,7 @@ services:
     networks:
       - internal
     ports:
-      - "3000:3000"
+      - "3001:3000"
     env_file:
       - ./grafana/.env
     volumes:
@@ -32,46 +32,6 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
-
-  cadvisor:
-    container_name: monitoring-cadvisor
-    image: gcr.io/cadvisor/cadvisor:latest
-    hostname: rpi-cadvisor
-    restart: unless-stopped
-    cap_add:
-      - SYS_ADMIN
-    networks:
-      - internal
-    expose:
-      - 8080
-    command:
-      - '-housekeeping_interval=15s'
-      - '-docker_only=true'
-      - '-store_container_labels=false'
-    devices:
-      - /dev/kmsg
-    volumes:
-      - /:/rootfs:ro
-      - /var/run:/var/run:rw
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
-      - /dev/disk/:/dev/disk:ro
-      - /etc/machine-id:/etc/machine-id:ro
-    healthcheck:
-      test: ["CMD", "wget", "-O", "/dev/null", "http://localhost:8080/healthz"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-    labels:
-      - "com.example.description=cAdvisor Container Monitoring"
-      - "com.example.service=monitoring"
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
-    mem_limit: 256m
-    mem_reservation: 128m
 
   node-exporter:
     container_name: monitoring-node-exporter
@@ -130,7 +90,6 @@ services:
       - prometheus-data:/prometheus
       - ./prometheus:/etc/prometheus/
     depends_on:
-      - cadvisor
       - node-exporter
     healthcheck:
       test: ["CMD", "wget", "-O", "/dev/null", "http://localhost:9090/-/healthy"]
@@ -148,6 +107,17 @@ services:
         max-file: "3"
     mem_limit: 1g
     mem_reservation: 512m
+
+  snmp-exporter:
+    image: prom/snmp-exporter
+    container_name: monitoring-snmp-exporter
+    restart: always
+    volumes:
+      - ./snmp/:/etc/snmp_exporter/
+    ports:
+      - "9116:9116"
+    depends_on:
+      - prometheus
 
 volumes:
   grafana-data:
