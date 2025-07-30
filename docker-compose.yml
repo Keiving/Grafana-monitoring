@@ -121,6 +121,17 @@ services:
     depends_on:
       - prometheus
 
+  blackbox-exporter:
+    image: prom/blackbox-exporter:latest
+    container_name: blackbox-exporter
+    networks:
+      - internal
+    expose:
+      - 9115
+    volumes:
+      - ./blackbox.yml:/etc/blackbox_exporter/config.yml
+    restart: unless-stopped
+
 volumes:
   grafana-data:
     labels:

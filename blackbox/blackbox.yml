@@ -1,0 +1,22 @@
+modules:
+  http_head:
+    prober: http
+    timeout: 5s
+    http:
+      method: HEAD
+      preferred_ip_protocol: "ip4"
+
+  https_head:
+    prober: http
+    timeout: 5s
+    http:
+      method: HEAD
+      tls_config:
+        insecure_skip_verify: true
+      preferred_ip_protocol: "ip4"
+
+  icmp:
+    prober: icmp
+    timeout: 3s
+    icmp:
+      preferred_ip_protocol: "ip4"
