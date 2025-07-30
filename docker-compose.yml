@@ -129,7 +129,7 @@ services:
     expose:
       - 9115
     volumes:
-      - ./blackbox.yml:/etc/blackbox_exporter/config.yml
+      - ./blackbox/blackbox.yml:/etc/blackbox_exporter/config.yml
     restart: unless-stopped
 
 volumes:
