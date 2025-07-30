@@ -31,12 +31,12 @@ scrape_configs:
     scrape_interval: 5s
     static_configs:
       - targets: ['node-exporter:9100']
-      - targets: ['replace_this:9100'] #Replace this with 1 more node (Optional)
+      - targets: ['replace_this:9100'] # Replace this with 1 more node (Optional)
 
   - job_name: 'snmp-exporter'
     static_configs:
       - targets:
-        - replace_this #Replace this with Mikrotik ip address
+        - replace_this # Replace this with Mikrotik ip address
     metrics_path: /snmp
     params:
       module: [mikrotik]
@@ -46,4 +46,42 @@ scrape_configs:
       - source_labels: [__param_target]
         target_label: instance
       - target_label: __address__
-        replacement: snmp-exporter:9116 #Replace this with host ip
+        replacement: snmp-exporter:9116
+
+  - job_name: 'blackbox-http'
+    scrape_interval: 60s   # Interval
+    metrics_path: /probe
+    params:
+      module: [https_head]
+    static_configs:
+      - targets:
+          - https://google.com
+          - https://ya.ru
+          - https://t.me
+          - https://web.whatsapp.com
+          - https://youtube.com
+          - https://discord.com
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox-exporter:9115
+
+  - job_name: 'blackbox-icmp'
+    scrape_interval: 60s   # Interval
+    metrics_path: /probe
+    params:
+      module: [icmp]
+    static_configs:
+      - targets:
+          - 8.8.8.8
+          - 1.1.1.1
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox-exporter:9115
