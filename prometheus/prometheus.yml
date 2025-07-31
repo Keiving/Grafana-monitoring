@@ -57,7 +57,7 @@ scrape_configs:
       - targets:
           - https://google.com
           - https://ya.ru
-          - https://t.me
+          - https://web.telegram.org
           - https://web.whatsapp.com
           - https://youtube.com
           - https://discord.com
