@@ -1,7 +1,7 @@
     # WARNING: This file was auto-generated using snmp_exporter generator, manual changes will be lost.
 auths:
     public_v2:
-        community: replace_this #Replace this with the name of your community
+        community: replace_this # Replace this with the name of your community
         security_level: noAuthNoPriv
         auth_protocol: MD5
         priv_protocol: DES
