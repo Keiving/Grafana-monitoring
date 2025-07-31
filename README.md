@@ -1,4 +1,4 @@
-# Mikrotik & Node Monitoring
+# Mikrotik, Services & Nodes Monitoring
 
 ## Installation and Configuration
 
@@ -23,8 +23,9 @@ This will start all the containers and make them available on the host machine.
 <br/>The following ports are used (only Grafana is exposed on the host machine):
 - 3001: Grafana
 - 9090: Prometheus
-- 9100: NodeExporter
-- 9116: SNMP exporter
+- 9100: Node Exporter
+- 9116: SNMP Exporter
+- 9115: Black Box Exporter
 
 ## Acknowledgements
 This project is a fork of [Docker-Raspberry-PI-Monitoring](https://github.com/oijkn/Docker-Raspberry-PI-Monitoring) by [oijkn](https://github.com/oijkn).  
